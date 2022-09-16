@@ -114,7 +114,3 @@ area_map.set_global_opts(title_opts=opts.TitleOpts(title="中国疫情新增确�
                                  {"min": 10, "max": 99, "label": '10-99人', "color": "#E35B52"},
                                  {"min": 1, "max": 9, "label": '1-9人', "color": "#F39E86"}]))
 area_map.render(input_date + '全国新增确诊地图.html')
-
-import cProfile
-import re
-cProfile.run('re.compile("foo|bar")')
