@@ -4,7 +4,7 @@ import xlwt
 from pyecharts.charts import Bar, Grid
 from pyecharts.charts import Map
 import pyecharts.options as opts
-input_date = input()
+input_date = input("请输入日期（xxxx-xx-xx）:")
 with open('./text_result/'+input_date+'.txt', 'r', encoding='utf-8') as f:
     text = f.read()
     f.close()
