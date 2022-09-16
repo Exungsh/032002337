@@ -1,4 +1,4 @@
-# An Covid-19 data analysis program based on the Health Commission(NHC) announcement
+# A Covid-19 data analysis program based on the Health Commission(NHC) announcement
 <br>
 
 请直接下载**package.zip**解压并运行**get_result.py**以获得最好体验。
