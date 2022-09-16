@@ -13,13 +13,13 @@ def get(target_url):
     url = []
     area = requests.get(target_url, headers=headers).text  # 爬取网页文字
     bs = BeautifulSoup(area, "html.parser")
-    a_url = bs.select('.list > ul > li > a')
-    span_date = bs.select('.list > ul > li > span')
+    a_url = bs.select('.list > ul > li > a')  # 选择网址
+    span_date = bs.select('.list > ul > li > span')  # 选择日期
     for a in a_url:
         url.append('http://www.nhc.gov.cn/' + a['href'])
     for span in span_date:
         date.append(span.text)
-    result = dict(zip(date, url))
+    result = dict(zip(date, url))  # 打包为字典
     return result
 
 
@@ -40,6 +40,8 @@ for i in range(1, 41):
         udict = get(target_url)
         list_len = len(udict)
     url_dict.update(udict)
+
+# 将字典存为json文件
 with open("url_list.json", "w") as f:
     f.write(json.dumps(url_dict, indent=4))
 print("完成！")

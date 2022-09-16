@@ -18,7 +18,9 @@ def get(target_url):
 
 with open("url_list.json") as f:
     url_dict = json.loads(f.read())  # 导入程序get_url产生的json文件
-date_list = url_dict.keys()
+date_list = url_dict.keys()  # date_list中存日期
+
+# 遍历字典，取出网址进行爬取
 for date in date_list:
     try_count = 1
     list_len = 0
@@ -31,6 +33,8 @@ for date in date_list:
         p_data = get(url)
         list_len = len(p_data)
     data = ''
+
+# 将列表合并为一个字符串，存为txt
     for p in p_data:
         data = data + p.text
     fh = open(date+'.txt', 'w', encoding='utf-8')

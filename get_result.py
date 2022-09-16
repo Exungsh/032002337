@@ -4,17 +4,21 @@ import xlwt
 from pyecharts.charts import Bar, Grid
 from pyecharts.charts import Map
 import pyecharts.options as opts
-input_date = input("请输入日期（xxxx-xx-xx）:")
+# 用户输入日期
+input_date = input("请输入日期（xxxx-xx-xx）：")
+
+# 打开get_text.py生成的相应文件
 with open('./text_result/'+input_date+'.txt', 'r', encoding='utf-8') as f:
     text = f.read()
     f.close()
-print(text)
+
+# 创建表格
 book = xlwt.Workbook()
 sheet = book.add_sheet('sheet1')
-new_prov = []
-new_num = []
-wzz_prov = []
-wzz_num = []
+new_prov = [] # 新增省份
+new_num = [] # 新增人数
+wzz_prov = [] # 无症状省份
+wzz_num = [] # 无症状人数
 
 # 新增确诊
 new_text = re.findall('本土病例.*?）', text)[0]
@@ -22,7 +26,7 @@ print(new_text)
 cut = jieba.cut(new_text, cut_all=False)  # jieba切词
 new_result = ' '.join(cut)
 new_result = new_result.split()
-print(new_result)
+
 count = 0
 title = ['省份', '新增确诊']
 col = 0
@@ -47,7 +51,6 @@ print(new_num)
 
 # 新增无症状
 wzz_text = re.findall('新增无症状感染者.*?）', text)[0]
-print(wzz_text)
 cut = jieba.cut(wzz_text, cut_all=False)  # jieba切词
 wzz_result = ' '.join(cut)
 wzz_result = wzz_result.split()
@@ -74,9 +77,10 @@ for word in wzz_result:
     count += 1
 print(wzz_prov)
 print(wzz_num)
+# 生成表格
 book.save('全国新增确诊和无症状人数汇总.xls')
 
-
+# 生成柱状图
 bar_new = (
     Bar()
     .add_xaxis(new_prov)
@@ -97,7 +101,8 @@ bar_wzz = (
  .add(bar_new, grid_opts=opts.GridOpts(pos_top="90px", pos_bottom="60%", height="200px"))
  .add(bar_wzz, grid_opts=opts.GridOpts(pos_top="60%", height="200px"))
  ).render(input_date+'全国新增确诊和无症状人数柱状图.html')
-# 地图
+
+# 生成地图
 x = []  # 把各省感染人数与各省对应
 for z in zip(list(new_prov), list(new_num)):
     list(z)
